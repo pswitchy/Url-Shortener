@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { urlStore, URLData } from "../../utils/dataStore";
+import { urlStore } from "../../utils/dataStore";
 import { isValidUrl } from "../../utils/urlUtils";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

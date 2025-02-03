@@ -9,7 +9,7 @@ const HomePage = () => {
   const [newLongUrl, setNewLongUrl] = useState('');
   const [shortCodeDelete, setShortCodeDelete] = useState('');
   const [shortCodeStats, setShortCodeStats] = useState('');
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<{ type: string; data?: any; message?: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [darkMode, setDarkMode] = useState(false); // State for dark mode toggle

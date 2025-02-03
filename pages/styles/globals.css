@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Light Mode Base Styles (Default) */
+body {
+  @apply bg-neutral-light text-neutral-dark;
+  font-family: 'sans', sans-serif;
+}
+
+/* Dark Mode Base Styles */
+.dark body {
+  @apply bg-dark-bg text-dark-text;
+}

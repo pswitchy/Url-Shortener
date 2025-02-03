@@ -33,10 +33,9 @@ Follow these steps to run the URL Shortener application locally:
 **1. Clone the Repository:**
 
 ```bash
-git clone <YOUR_REPOSITORY_URL>
+git clone <repo-url>
 cd Url-Shortener
 ```
-**(Replace `<YOUR_REPOSITORY_URL>` with the actual URL of your repository)**
 
 **2. Install Dependencies:**
 
@@ -101,10 +100,6 @@ The backend API is built using Next.js API routes and is available under the `/a
 
 6.  **Dark Mode Toggle:**
     - Use the toggle button in the top-right corner to switch between light and dark modes.
-
-## Deployment on Vercel
-
-This project is designed to be easily deployed on [Vercel](https://vercel.com/).  Simply push your repository to GitHub, GitLab, or Bitbucket and import the project into Vercel. Vercel will automatically detect it's a Next.js project and handle the build and deployment process.
 
 **Environment Variables (Optional):**
 

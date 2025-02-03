@@ -1,6 +1,24 @@
 import { useState, useEffect } from 'react';
 import './styles/globals.css';
+import { URLData } from './utils/dataStore';
 const API_BASE_URL = '/api/shorten';
+
+interface ShortenResult {
+    type: 'shorten';
+    data: URLData; // Assuming you have URLData interface defined in utils/dataStore.ts
+}
+
+interface RetrieveResult {
+    type: 'retrieve' | 'update' | 'stats';
+    data: URLData;
+}
+
+interface DeleteResult {
+    type: 'delete';
+    message: string;
+}
+
+type ResultType = ShortenResult | RetrieveResult | DeleteResult | null; // Null when there's no result yet
 
 const HomePage = () => {
   const [longUrl, setLongUrl] = useState('');
@@ -9,7 +27,7 @@ const HomePage = () => {
   const [newLongUrl, setNewLongUrl] = useState('');
   const [shortCodeDelete, setShortCodeDelete] = useState('');
   const [shortCodeStats, setShortCodeStats] = useState('');
-  const [result, setResult] = useState<{ type: string; data?: any; message?: string } | null>(null);
+  const [result, setResult] = useState<ResultType>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [darkMode, setDarkMode] = useState(false); // State for dark mode toggle
@@ -167,7 +185,7 @@ const HomePage = () => {
       content = (
         <div className="p-4 bg-white dark:bg-dark-bg rounded-md shadow-md transition-opacity duration-300" style={{ opacity: result ? 1 : 0 }}>
           <h3 className="text-lg font-semibold mb-2 text-secondary-vibrant dark:text-secondary-vibrant">{result.type.charAt(0).toUpperCase() + result.type.slice(1)} URL Successful!</h3>
-          {Object.entries(result.data).map(([key, value]) => (
+          {'data' in result && Object.entries(result.data).map(([key, value]) => (
             <p key={key} className="mb-1 text-gray-700 dark:text-dark-text"><span className="font-medium">{key}:</span> {String(value)}</p>
           ))}
         </div>

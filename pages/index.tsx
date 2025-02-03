@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import './styles/globals.css';
 import { URLData } from './utils/dataStore';
 const API_BASE_URL = '/api/shorten';
 

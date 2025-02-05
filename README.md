@@ -105,12 +105,11 @@ The backend API is built using Next.js API routes and is available under the `/a
 
 You can configure the base API URL for the frontend by setting the `NEXT_PUBLIC_API_BASE_URL` environment variable in Vercel's project settings if you plan to deploy the backend and frontend separately or at different domains. By default, it assumes the API is at the same domain.
 
-## Future Enhancements
+## Enhancements
 
 - **Database Integration:**  Replace the in-memory data store with a persistent database (e.g., PostgreSQL, MongoDB, SQLite) for production use.
 - **Custom Short Codes:** Allow users to specify custom short codes.
 - **Analytics Dashboard:**  Expand statistics to include more detailed analytics (e.g., geographic location, browser types, referrer information).
 - **Rate Limiting:** Implement rate limiting to protect the service from abuse.
-- **User Authentication:** Add user accounts and authentication for managing short URLs.
 - **Link Expiration:** Allow users to set expiration dates for short URLs.
-- **QR Code Generation:** Generate QR codes for short URLs.
+- **QR Code Generation:** Generate QR codes for short URLs. (in process)

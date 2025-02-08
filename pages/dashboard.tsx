@@ -1,6 +1,21 @@
-// pages/dashboard.tsx
 import React, { useEffect, useState } from 'react';
-import pool from './utils/db';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "./components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./components/ui/table";
+import { Skeleton } from "./components/ui/skeleton";
+import { Alert, AlertDescription } from "./components/ui/alert";
+import { Link2, TrendingUp, Link } from "lucide-react";
 
 interface Stats {
     totalUrls: number;
@@ -18,7 +33,7 @@ const DashboardPage = () => {
             setLoading(true);
             setError(null);
             try {
-                const response = await fetch('/api/analytics'); // Create API endpoint /api/analytics
+                const response = await fetch('/api/analytics');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -36,58 +51,114 @@ const DashboardPage = () => {
     }, []);
 
     if (loading) {
-        return <div>Loading Dashboard...</div>;
+        return (
+            <div className="container mx-auto p-6 space-y-6">
+                <Skeleton className="h-8 w-64" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <Skeleton className="h-32" />
+                    <Skeleton className="h-32" />
+                </div>
+                <Skeleton className="h-64" />
+            </div>
+        );
     }
 
     if (error) {
-        return <div style={{ color: 'red' }}>Error: {error}</div>;
+        return (
+            <div className="container mx-auto p-6">
+                <Alert variant="destructive">
+                    <AlertDescription>{error}</AlertDescription>
+                </Alert>
+            </div>
+        );
     }
 
     if (!stats) {
-        return <div>No stats available.</div>;
+        return (
+            <div className="container mx-auto p-6">
+                <Alert>
+                    <AlertDescription>No statistics available at the moment.</AlertDescription>
+                </Alert>
+            </div>
+        );
     }
 
     return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Analytics Dashboard</h1>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-white p-4 rounded shadow">
-                    <h2 className="text-lg font-semibold mb-2">Total Shortened URLs</h2>
-                    <p className="text-xl">{stats.totalUrls}</p>
-                </div>
-
-                <div className="bg-white p-4 rounded shadow">
-                    <h2 className="text-lg font-semibold mb-2">Total URL Access Count</h2>
-                    <p className="text-xl">{stats.totalAccessCount}</p>
-                </div>
+        <div className="container mx-auto p-6 space-y-6">
+            <div className="flex items-center space-x-2">
+                <TrendingUp className="h-6 w-6" />
+                <h1 className="text-3xl font-bold">Analytics Dashboard</h1>
             </div>
 
-            <div className="mt-8 bg-white p-4 rounded shadow">
-                <h2 className="text-lg font-semibold mb-4">Top 5 Most Accessed URLs</h2>
-                {stats.topUrls.length > 0 ? (
-                    <table className="min-w-full">
-                        <thead>
-                            <tr>
-                                <th className="text-left">Short Code</th>
-                                <th className="text-left">Original URL</th>
-                                <th className="text-left">Access Count</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {stats.topUrls.map((urlStat) => (
-                                <tr key={urlStat.short_code}>
-                                    <td className="py-1">{urlStat.short_code}</td>
-                                    <td className="py-1">{urlStat.url}</td>
-                                    <td className="py-1">{urlStat.access_count}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                ) : (
-                    <p>No URLs accessed yet.</p>
-                )}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Card>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">
+                            Total Shortened URLs
+                        </CardTitle>
+                        <Link2 className="h-4 w-4 text-muted-foreground" />
+                    </CardHeader>
+                    <CardContent>
+                        <div className="text-2xl font-bold">{stats.totalUrls}</div>
+                        <p className="text-xs text-muted-foreground">
+                            Unique URLs in the system
+                        </p>
+                    </CardContent>
+                </Card>
+
+                <Card>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">
+                            Total Access Count
+                        </CardTitle>
+                        <Link className="h-4 w-4 text-muted-foreground" />
+                    </CardHeader>
+                    <CardContent>
+                        <div className="text-2xl font-bold">{stats.totalAccessCount}</div>
+                        <p className="text-xs text-muted-foreground">
+                            Combined clicks across all URLs
+                        </p>
+                    </CardContent>
+                </Card>
             </div>
+
+            <Card>
+                <CardHeader>
+                    <CardTitle>Top 5 Most Accessed URLs</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    {stats.topUrls.length > 0 ? (
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Short Code</TableHead>
+                                    <TableHead className="max-w-[300px]">Original URL</TableHead>
+                                    <TableHead className="text-right">Access Count</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {stats.topUrls.map((urlStat) => (
+                                    <TableRow key={urlStat.short_code}>
+                                        <TableCell className="font-medium">
+                                            {urlStat.short_code}
+                                        </TableCell>
+                                        <TableCell className="max-w-[300px] truncate">
+                                            {urlStat.url}
+                                        </TableCell>
+                                        <TableCell className="text-right">
+                                            {urlStat.access_count}
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    ) : (
+                        <div className="text-center py-6 text-muted-foreground">
+                            No URLs have been accessed yet.
+                        </div>
+                    )}
+                </CardContent>
+            </Card>
         </div>
     );
 };

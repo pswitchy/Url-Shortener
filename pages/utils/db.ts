@@ -1,5 +1,5 @@
 // utils/db.ts
-import { Pool } from 'pg';
+import { Pool } from '@neondatabase/serverless';
 import dotenv from 'dotenv';
 
 dotenv.config();

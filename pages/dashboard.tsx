@@ -4,7 +4,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from "./components/ui/card";
+} from "../components/ui/card";
 import {
   Table,
   TableBody,
@@ -12,9 +12,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./components/ui/table";
-import { Skeleton } from "./components/ui/skeleton";
-import { Alert, AlertDescription } from "./components/ui/alert";
+} from "../components/ui/table";
+import { Skeleton } from "../components/ui/skeleton";
+import { Alert, AlertDescription } from "../components/ui/alert";
 import { Link2, TrendingUp, Link } from "lucide-react";
 
 interface Stats {

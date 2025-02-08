@@ -1,6 +1,6 @@
 // pages/index.tsx
 import { useState, useEffect } from 'react';
-import type { URLData } from './utils/dataStore';
+import type { URLData } from '../utils/dataStore';
 import Link from 'next/link';
 
 const API_BASE_URL = '/api/shorten';

@@ -1,8 +1,8 @@
 // pages/api/shorten.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { v4 as uuidv4 } from 'uuid';
-import { isValidUrl, generateShortCode } from '../utils/urlUtils';
-import pool from '../utils/db';
+import { isValidUrl, generateShortCode } from '../../utils/urlUtils';
+import pool from '../../utils/db';
 
 const rateLimitWindowMs = 60 * 1000; // 1 minute window
 const maxRequestsPerWindow = 5; // Max 5 requests per minute
